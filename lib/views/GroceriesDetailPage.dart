@@ -12,6 +12,34 @@ class GroceriesDetailPage extends StatefulWidget {
 }
 
 class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
+  bool isLove = true;
+
+  void _LovePressed() {
+    if (isLove == true) {
+      isLove = false;
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Added to Favorite'),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.pink,
+          ),
+        );
+      });
+    } else {
+      isLove = true;
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Removed from Favorite'),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.grey,
+          ),
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,24 +53,87 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
               margin: EdgeInsets.all(10),
               width: double.infinity,
               height: 200,
-              child: Image.network(widget.groceries.productImageUrls[0]),
+              child: Row(
+                children: widget.groceries.productImageUrls.map((imageUrl) {
+                  return Expanded(
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
-            Text(widget.groceries.name),
-            Text(widget.groceries.description),
-            Text(widget.groceries.price),
-            Text(widget.groceries.stock),
-            Text(widget.groceries.discount),
-            Text(widget.groceries.storeName),
-            Text(widget.groceries.reviewAverage),
-            ElevatedButton(
-              onPressed: () {
-                _launchURL(widget.groceries.productUrl);
-              },
-              child: Text('Beli'),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                widget.groceries.name,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                widget.groceries.description,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                "Rp. " + widget.groceries.price,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                "Stok: " + widget.groceries.stock,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                "Diskon: " + widget.groceries.discount,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                "Toko: " + widget.groceries.storeName,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    _launchURL(widget.groceries.productUrl);
+                  },
+                  child: Text('Beli'),
+                ),
+                IconButton(
+                  onPressed: () {
+                    // TODO: Implement favorite functionality
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Colors.pink,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _LovePressed,
+        tooltip: 'Favorite',
+        child: const Icon(Icons.favorite),
+      ), // Th
     );
   }
 
