@@ -73,13 +73,8 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
             ),
             Container(
               margin: EdgeInsets.all(10),
-              child: Text(
-                widget.groceries.description,
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
+              alignment: Alignment
+                  .centerLeft, // Add this line to align the text to the left
               child: Text(
                 "Rp. " + widget.groceries.price,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -87,6 +82,8 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
             ),
             Container(
               margin: EdgeInsets.all(10),
+              alignment: Alignment
+                  .centerLeft, // Add this line to align the text to the left
               child: Text(
                 "Stok: " + widget.groceries.stock,
                 style: TextStyle(fontSize: 15),
@@ -94,6 +91,8 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
             ),
             Container(
               margin: EdgeInsets.all(10),
+              alignment: Alignment
+                  .centerLeft, // Add this line to align the text to the left
               child: Text(
                 "Diskon: " + widget.groceries.discount,
                 style: TextStyle(fontSize: 15),
@@ -101,8 +100,17 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
             ),
             Container(
               margin: EdgeInsets.all(10),
+              alignment: Alignment
+                  .centerLeft, // Add this line to align the text to the left
               child: Text(
                 "Toko: " + widget.groceries.storeName,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Text(
+                widget.groceries.description,
                 style: TextStyle(fontSize: 15),
               ),
             ),
@@ -115,17 +123,11 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
                   },
                   child: Text('Beli'),
                 ),
-                IconButton(
-                  onPressed: () {
-                    // TODO: Implement favorite functionality
-                  },
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.pink,
-                  ),
-                ),
               ],
             ),
+            SizedBox(height: 20.0),
+            SizedBox(height: 20.0),
+            SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -133,7 +135,8 @@ class _GroceriesDetailPageState extends State<GroceriesDetailPage> {
         onPressed: _LovePressed,
         tooltip: 'Favorite',
         child: const Icon(Icons.favorite),
-      ), // Th
+        backgroundColor: isLove ? Colors.grey : Colors.pink,
+      ),
     );
   }
 
