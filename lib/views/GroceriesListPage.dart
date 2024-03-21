@@ -33,7 +33,12 @@ class GroceriesListPage extends StatelessWidget {
                       child: Image.network(groceries.productImageUrls[0],
                           fit: BoxFit.cover),
                     ),
-                    Text(groceries.name),
+                    Expanded(
+                      child: Text(
+                        groceries.name,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
               ));
